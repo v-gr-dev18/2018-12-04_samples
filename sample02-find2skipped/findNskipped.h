@@ -53,7 +53,7 @@ void findNskipped(std::vector<T> &result, std::vector<T> &v, size_t l0, size_t r
             if (v[l0] != I)
                 result.push_back(I);
     }
-    else if (M < v[r]) {
+    else if (M < v[l0]) {
         // если значение M слева от [l0,r0]
         for (T I = L; I <= M; ++I)
             result.push_back(I);
@@ -62,7 +62,7 @@ void findNskipped(std::vector<T> &result, std::vector<T> &v, size_t l0, size_t r
 #endif
         findNskipped(result, v, r, r0, N - (M-L+1));
     }
-    else if (v[l] <= M) {
+    else if (v[r0] <= M) {
         // если значение M справа от [l0,r0]
         findNskipped(result, v, l0, l, N - (R-M));
         for (T I = M+1; I <= R; ++I)
@@ -71,9 +71,9 @@ void findNskipped(std::vector<T> &result, std::vector<T> &v, size_t l0, size_t r
         { auto &ov = result; auto on = "skip"; std::cout << on << "[" << ov.size() << "]={"; int count = 0; std::for_each(ov.begin(), ov.end(), [&count](const int item) { std::cout << (count++ ? "," : "") << item; }); std::cout << "}" << std::endl; }
 #endif
     }
-    else /* if (Lshift + l0 <= M && M < Lshift + r0) */ {
+    else /* if (v[l0] <= M && M < v[r0]) */ {
         // если значение M внутри [l0,r0]
-        findNskipped(result, v, l0, r, M + 1 - Lshift - l); // проверить
+        findNskipped(result, v, l0, r, M + 1 - Lshift - l);
         findNskipped(result, v, l, r0, N - (M + 1 - Lshift - l));
     }
 }
