@@ -15,4 +15,4 @@ int main()
     cout << "{"; l.for_each([](const int item) { static int count = 0;  cout << (count++ ? "," : "") << item; }); cout << "}" << endl;
     l.invert();
     cout << "{"; l.for_each([](const int item) { static int count = 0;  cout << (count++ ? "," : "") << item; }); cout << "}" << endl;
- }
+}
